@@ -6,6 +6,8 @@ import io.library.librarybooks.boundaries.driven.database.converters.BookConvert
 import io.library.librarybooks.boundaries.driven.database.repositories.BookRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class BookDataAdapter implements BookDataPort {
 
@@ -20,6 +22,7 @@ public class BookDataAdapter implements BookDataPort {
     @Override
     public BookModel create(BookModel bookModel) {
         var book = bookRepository.save(bookConverter.convert(bookModel));
+        book.setIsbn(UUID.randomUUID().toString());
         return bookConverter.convert(book);
     }
 
